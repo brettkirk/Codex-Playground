@@ -170,6 +170,24 @@ footer {
   box-shadow: 2px 2px 0 #000;
 }
 
+.ticker-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  margin-right: 2rem;
+}
+
+.ticker-separator {
+  color: #ffe179;
+  font-weight: 800;
+  font-size: 1.1em;
+  letter-spacing: 0.2em;
+}
+
 main {
   padding: 2.5rem;
   display: grid;
