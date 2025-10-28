@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import heroFlyerImg from './assets/poster wall.png'
+import heroCassetteImg from './assets/KPNK Mixtape.png'
+import djGutterRatImg from './assets/DJ Gutterrat.png'
 import './App.css'
 
 const tickerMessages = [
@@ -31,22 +34,22 @@ const shuffleArray = (array) => {
 const upcomingShows = [
   { day: 'Monday', show: 'Signal Boost Morning Show', time: '6:00 AM - 10:00 AM' },
   { day: 'Wednesday', show: 'Late Night Lost & Found', time: '11:00 PM - 2:00 AM' },
-  { day: 'Friday', show: 'Pop/Punk Power Hour', time: '8:00 PM - 10:00 PM' },
-  { day: 'Saturday', show: 'Back Alley Requests', time: '9:00 PM - 1:00 AM' },
+  { day: 'Friday', show: 'Radio Violence: Live from the Bunker', time: '8:00 PM - 11:00 PM' },
+  { day: 'Saturday', show: 'Trash Youth Back Alley Broadcast', time: '9:00 PM - 1:00 AM' },
 ]
 
 const topRequests = [
-  'The Static Hearts — "Neon Skyline"',
-  'Turnpike Ghosts — "Detour Anthem"',
-  'Cherry Riot — "Broken Speaker"',
-  'Radio Fable — "Sleepless in South Lake"',
-  'Parking Lot Poets — "Rainy City Reckless"',
+  'Glasskick — "No Signal"',
+  'Radio Violence — "Edge of Collapse"',
+  'Night Terror — "Basement Lights"',
+  'Trash Youth — "Static Hearts Club"',
+  'Dearly Departed — "Echoes on 3rd Avenue"',
 ]
 
 const streetTeamEvents = [
-  { date: 'May 12', event: 'KPNK Alley Sessions @ Belltown Warehouse' },
-  { date: 'May 18', event: 'Pop/Punk Prom Night Live Remote' },
-  { date: 'May 26', event: 'Lost Signals Listening Party' },
+  { date: 'May 12', event: 'Radio Violence Rooftop Simulcast @ Capitol Hill' },
+  { date: 'May 18', event: 'Trash Youth Tape Swap behind Neptune Records' },
+  { date: 'May 26', event: 'Dearly Departed unplugged vigil in Gasworks Park' },
 ]
 
 function App() {
@@ -124,9 +127,23 @@ function App() {
               <li><span>🎤</span> Exclusive interviews every weekend</li>
             </ul>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="poster placeholder">Flyer Wall Placeholder</div>
-            <div className="cassette placeholder">Mix Tape Mockup</div>
+          <div className="hero-art">
+            <figure className="hero-image poster">
+              <img
+                src={heroFlyerImg}
+                alt="Photo collage of K-PUNK flyers for Glasskick, Trash Youth, and Night Terror wheat-pasted on brick."
+                loading="lazy"
+              />
+              <figcaption>Fresh K-PUNK street flyer spotted outside the Underground Arcade.</figcaption>
+            </figure>
+            <figure className="hero-image cassette">
+              <img
+                src={heroCassetteImg}
+                alt="Photo of a mixtape cassette labeled KPNK 94.9FM K-PUNK mix by DJ GutterRat."
+                loading="lazy"
+              />
+              <figcaption>Midnight mix cassette getting dubbed for the next back alley drop.</figcaption>
+            </figure>
           </div>
         </section>
 
@@ -162,13 +179,20 @@ function App() {
               <span className="panel-subtitle">Meet the voice behind the static.</span>
             </div>
             <div className="dj-card">
-              <div className="dj-photo placeholder">Polaroid Placeholder</div>
+              <figure className="dj-photo">
+                <img
+                  src={djGutterRatImg}
+                  alt="Photo of DJ GutterRat broadcasting from the KPNK booth."
+                  loading="lazy"
+                />
+                <figcaption>DJ GutterRat lining up another wall of distortion.</figcaption>
+              </figure>
               <div>
-                <h4>Razor Roxie</h4>
+                <h4>DJ GutterRat</h4>
                 <p>
-                  Roxie spins the midnight shift, diving into deep cuts and listener confessions live on-air. Expect crunchy guitars, rain-drenched poetry, and the occasional lost voicemail.
+                  GutterRat splices fuzzed-out frequencies with listener confessions, keeping KPNK 94.9FM K-PUNK dangerous after dark. Expect Glasskick exclusives, Dearly Departed dedications, and tape hiss on every transition.
                 </p>
-                <button className="button-link">Send Roxie a shout-out</button>
+                <button className="button-link">Send GutterRat a shout-out</button>
               </div>
             </div>
           </div>
@@ -230,7 +254,7 @@ function App() {
           <a href="#">Advertise</a>
           <a href="#">Send us your demo</a>
         </div>
-        <p className="copyright">© {new Date().getFullYear()} KPNK Radio. Built for night owls and lost signals.</p>
+        <p className="copyright">© 2003 KPNK 94.9FM K-PUNK. Built for night owls and lost signals.</p>
       </footer>
     </div>
   )
