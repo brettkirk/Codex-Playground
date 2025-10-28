@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
 const tickerMessages = [
@@ -51,14 +51,20 @@ const streetTeamEvents = [
 
 function App() {
   const [shuffledTickerMessages, setShuffledTickerMessages] = useState(() => shuffleArray(tickerMessages))
+  const tickerTrackRef = useRef(null)
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const tickerTrack = tickerTrackRef.current
+    if (!tickerTrack) return undefined
+
+    const handleIteration = () => {
       setShuffledTickerMessages(shuffleArray(tickerMessages))
-    }, 45000)
+    }
+
+    tickerTrack.addEventListener('animationiteration', handleIteration)
 
     return () => {
-      clearInterval(interval)
+      tickerTrack.removeEventListener('animationiteration', handleIteration)
     }
   }, [])
 
@@ -89,18 +95,20 @@ function App() {
 
       <div className="ticker">
         <div className="ticker-label">Latest Buzz</div>
-        <marquee behavior="scroll" direction="left" scrollamount="6">
-          {shuffledTickerMessages.map((message, index) => (
-            <span className="ticker-entry" key={message}>
-              {message}
-              {index !== shuffledTickerMessages.length - 1 && (
-                <span aria-hidden="true" className="ticker-separator">
-                  //
-                </span>
-              )}
-            </span>
-          ))}
-        </marquee>
+        <div className="ticker-window">
+          <div className="ticker-track" ref={tickerTrackRef}>
+            {shuffledTickerMessages.map((message, index) => (
+              <span className="ticker-entry" key={message}>
+                {message}
+                {index !== shuffledTickerMessages.length - 1 && (
+                  <span aria-hidden="true" className="ticker-separator">
+                    //
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       <main>
