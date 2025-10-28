@@ -1,4 +1,32 @@
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
+
+const tickerMessages = [
+  'KPNK 94.9 Is Live — Catch the Final Broadcast Before We Vanish Again',
+  'Signal Interference Detected on 94.9 MHz — Tuning Stability Not Guaranteed',
+  'Broadcast Relay Re-Activated: Archive Pull Complete',
+  'DJ GutterRat Back in the Booth for the Midnight Set',
+  'KPNK Transmitter at 27% — Expect Some Glorious Static',
+  "Tonight's Rotation: Pop/Punk B-Sides, Local Demos, and a Few Bangers from the Bunker",
+  'Local Legends Night: Featuring Demo Tapes from the 206',
+  'Setlist Updated: Now Featuring 3 Songs Pulled from the Signal Void',
+  'Mixtape Monday Postponed Due to Feedback Loop',
+  'Now Playing: “No Signal” by Glasskick — You Asked, We Obeyed',
+  'No Ads. No Labels. No Rules. Just KPNK.',
+  "We're Not Dead — We're Just Broadcast-Invisible",
+  'This Week’s Challenge: Spot the Static That’s Not Ours',
+  "Reminder: If You Hear Numbers, Don't Write Them Down",
+  'Shoutout to the Listener Who Mailed Us a 9-Volt and a Crayon Drawing',
+]
+
+const shuffleArray = (array) => {
+  const clone = [...array]
+  for (let i = clone.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[clone[i], clone[j]] = [clone[j], clone[i]]
+  }
+  return clone
+}
 
 const upcomingShows = [
   { day: 'Monday', show: 'Signal Boost Morning Show', time: '6:00 AM - 10:00 AM' },
@@ -22,6 +50,24 @@ const streetTeamEvents = [
 ]
 
 function App() {
+  const [shuffledTickerMessages, setShuffledTickerMessages] = useState(() => shuffleArray(tickerMessages))
+  const tickerTrackRef = useRef(null)
+
+  useEffect(() => {
+    const tickerTrack = tickerTrackRef.current
+    if (!tickerTrack) return undefined
+
+    const handleIteration = () => {
+      setShuffledTickerMessages(shuffleArray(tickerMessages))
+    }
+
+    tickerTrack.addEventListener('animationiteration', handleIteration)
+
+    return () => {
+      tickerTrack.removeEventListener('animationiteration', handleIteration)
+    }
+  }, [])
+
   return (
     <div className="page">
       <header className="header">
@@ -49,9 +95,20 @@ function App() {
 
       <div className="ticker">
         <div className="ticker-label">Latest Buzz</div>
-        <marquee behavior="scroll" direction="left" scrollamount="6">
-          KPNK's Lost Signals Sessions drop every Thursday at midnight • Win backstage passes to the Pop/Punk Prom Night • Vote for the next Deep Cut Revival album spotlight • Street Team is crashing the waterfront skate jam this weekend!
-        </marquee>
+        <div className="ticker-window">
+          <div className="ticker-track" ref={tickerTrackRef}>
+            {shuffledTickerMessages.map((message, index) => (
+              <span className="ticker-entry" key={message}>
+                {message}
+                {index !== shuffledTickerMessages.length - 1 && (
+                  <span aria-hidden="true" className="ticker-separator">
+                    //
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       <main>
