@@ -503,6 +503,7 @@ input[type='email']::placeholder {
     grid-template-areas:
       'logo now'
       'content content';
+    padding: 1.75rem 2rem;
   }
 
   .logo-block {
@@ -528,6 +529,7 @@ input[type='email']::placeholder {
   .ticker {
     flex-direction: column;
     align-items: flex-start;
+    padding: 0.75rem 1.75rem;
   }
 }
 
@@ -537,20 +539,70 @@ input[type='email']::placeholder {
   }
 
   .header {
-    grid-template-columns: 1fr;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      'logo now'
+      'content content';
+    align-items: stretch;
+    justify-items: center;
     text-align: center;
+    gap: 1.75rem;
+    padding: 1.5rem 1.75rem;
   }
 
-  .main-nav {
+  .logo-block {
+    grid-area: logo;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    margin: 0;
+  }
+
+  .header-content {
+    grid-area: content;
+    width: 100%;
+    max-width: 520px;
   }
 
   .now-playing {
-    order: 3;
+    grid-area: now;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .main-nav {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 0.75rem;
+    justify-items: stretch;
+  }
+
+  .main-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    width: 100%;
   }
 
   .hero {
     padding: 1.5rem;
+    text-align: center;
+  }
+
+  .hero-art {
+    order: -1;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .callouts {
+    justify-items: center;
   }
 
   .dj-card {
@@ -560,5 +612,160 @@ input[type='email']::placeholder {
 
   .input-row {
     grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 1.75rem;
+  }
+
+  .footer {
+    padding: 1.75rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .page {
+    margin: 0.75rem;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'logo'
+      'now'
+      'content';
+    padding: 1.35rem 1.5rem;
+    gap: 1.85rem;
+  }
+
+  .logo-block,
+  .now-playing {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .logo-block {
+    justify-content: center;
+  }
+
+  .now-playing {
+    padding: 1.2rem 1.4rem;
+    gap: 0.9rem;
+  }
+
+  .header-content {
+    max-width: 100%;
+  }
+
+  .logo {
+    max-width: 120px;
+  }
+
+  .station-name {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+  }
+
+  .main-nav {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.28), rgba(242, 5, 92, 0.34));
+    border-radius: 14px;
+  }
+
+  .main-nav a {
+    border-width: 2px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    min-height: 46px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+  }
+
+  .ticker {
+    padding: 0.65rem 1.25rem;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .now-playing {
+    padding: 1rem 1.25rem;
+  }
+
+  main {
+    padding: 1.5rem;
+    gap: 1.75rem;
+  }
+
+  .hero h2 {
+    font-size: 1.6rem;
+  }
+
+  .schedule table {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .schedule thead {
+    display: none;
+  }
+
+  .schedule tbody {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .schedule tbody tr {
+    display: grid;
+    gap: 0.4rem;
+    padding: 1rem;
+    border: 2px solid rgba(255, 225, 121, 0.4);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .schedule td {
+    border: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .schedule td:first-child {
+    font-weight: 800;
+    color: #ffe179;
+  }
+
+  .schedule td:nth-child(2)::before {
+    content: 'Show:';
+    font-weight: 700;
+    margin-right: 0.35rem;
+    color: #00d4ff;
+  }
+
+  .schedule td:nth-child(3)::before {
+    content: 'Air:';
+    font-weight: 700;
+    margin-right: 0.35rem;
+    color: #00d4ff;
+  }
+
+  .dj-card {
+    gap: 1rem;
+  }
+
+  .top-requests,
+  .street-team,
+  .newsletter {
+    padding: 1.5rem;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
