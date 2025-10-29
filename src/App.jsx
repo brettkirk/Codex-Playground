@@ -91,10 +91,10 @@ const streetTeamEvents = [
 function App() {
   const [shuffledTickerMessages, setShuffledTickerMessages] = useState(() => shuffleArray(tickerMessages))
   const tickerTrackRef = useRef(null)
-  const featuredDjIndex = useMemo(
-    () => weekOfMonth(new Date()) % onAirPersonalities.length,
-    []
-  )
+  const featuredDj = useMemo(() => {
+    const index = weekOfMonth(new Date())
+    return onAirPersonalities[index] ?? onAirPersonalities[0]
+  }, [])
 
   useEffect(() => {
     const tickerTrack = tickerTrackRef.current
@@ -110,8 +110,6 @@ function App() {
       tickerTrack.removeEventListener('animationiteration', handleIteration)
     }
   }, [])
-
-  const featuredDj = onAirPersonalities[featuredDjIndex]
 
   return (
     <div className="page">
