@@ -1,8 +1,41 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import heroFlyerImg from './assets/poster wall.png'
 import heroCassetteImg from './assets/KPNK Mixtape.png'
 import djGutterRatImg from './assets/DJ Gutterrat.png'
 import './App.css'
+
+const onAirPersonalities = [
+  {
+    Name: 'GutterRat',
+    Bio: `Weeknights (10PM–1AM) on The Last Chord, GutterRat keeps Seattle up late with a mix of raw guitars, candid stories, and that signature sign-off: “If it’s broken, play it louder.” It’s the companion show for night owls, tour vans, and anyone who swears their best ideas spark after midnight.`,
+    Image: djGutterRatImg,
+    Caption: 'GutterRat rides the faders after midnight, grinning through the static.',
+  },
+  {
+    Name: 'Static Tina',
+    Bio: `Static Tina owns the graveyard shift (1AM–4AM) with Feedback Frenzy—three hours of caffeinated commentary, live turntable tricks, and deep-cut noise rock. She’ll happily blow a speaker chasing the perfect moment and still sign off with, “Crank it 'til it breaks.”`,
+    Image: djGutterRatImg,
+    Caption: 'Static Tina braces the booth for feedback and 3AM callers.',
+  },
+  {
+    Name: 'Neon Val',
+    Bio: `Pop Damage with Neon Val lights up Thursdays (7PM–9PM). Expect upbeat heartbreak anthems, gleaming harmonies, and interviews with the artists shaping the scene. She calls it “bubblegum with a switchblade,” and her playlists always back it up.`,
+    Image: djGutterRatImg,
+    Caption: 'Neon Val cues glossy hooks with a color-coded setlist at the ready.',
+  },
+  {
+    Name: 'Trashley',
+    Bio: `Saturdays (2PM–6PM) belong to Trashley and Dumpster Dive Drive. She’s the resident punk historian with a sharp wit, spinning new releases, demo discoveries, and stories from the clubs before anyone else is talking about them.`,
+    Image: djGutterRatImg,
+    Caption: 'Trashley spots tomorrow’s punk heroes before the doors even open.',
+  },
+  {
+    Name: 'Echo Lyric',
+    Bio: `Echo Lyric slips through the static between 3:03–3:11AM with unscheduled cameos of ambient pop, unreleased collabs, and ghostly vocal loops. No official show listing—just a cult following that sets alarms to catch the next transmission.`,
+    Image: djGutterRatImg,
+    Caption: 'Echo Lyric materializes in the glow, sculpting loops from thin air.',
+  },
+]
 
 const tickerMessages = [
   'KPNK 94.9 Is Live — Catch the Final Broadcast Before We Vanish Again',
@@ -31,6 +64,9 @@ const shuffleArray = (array) => {
   return clone
 }
 
+const weekOfMonth = (date) =>
+  Math.floor((date.getDate() + new Date(date.getFullYear(), date.getMonth(), 1).getDay()) / 7)
+
 const upcomingShows = [
   { day: 'Monday', show: 'Signal Boost Morning Show', time: '6:00 AM - 10:00 AM' },
   { day: 'Wednesday', show: 'Late Night Lost & Found', time: '11:00 PM - 2:00 AM' },
@@ -55,6 +91,10 @@ const streetTeamEvents = [
 function App() {
   const [shuffledTickerMessages, setShuffledTickerMessages] = useState(() => shuffleArray(tickerMessages))
   const tickerTrackRef = useRef(null)
+  const featuredDjIndex = useMemo(
+    () => weekOfMonth(new Date()) % onAirPersonalities.length,
+    []
+  )
 
   useEffect(() => {
     const tickerTrack = tickerTrackRef.current
@@ -70,6 +110,8 @@ function App() {
       tickerTrack.removeEventListener('animationiteration', handleIteration)
     }
   }, [])
+
+  const featuredDj = onAirPersonalities[featuredDjIndex]
 
   return (
     <div className="page">
@@ -180,19 +222,13 @@ function App() {
             </div>
             <div className="dj-card">
               <figure className="dj-photo">
-                <img
-                  src={djGutterRatImg}
-                  alt="Photo of DJ GutterRat broadcasting from the KPNK booth."
-                  loading="lazy"
-                />
-                <figcaption>DJ GutterRat lining up another wall of distortion.</figcaption>
+                <img src={featuredDj.Image} alt={`Photo of DJ ${featuredDj.Name}.`} loading="lazy" />
+                <figcaption>{featuredDj.Caption}</figcaption>
               </figure>
               <div>
-                <h4>DJ GutterRat</h4>
-                <p>
-                  GutterRat splices fuzzed-out frequencies with listener confessions, keeping KPNK 94.9FM K-PUNK dangerous after dark. Expect Glasskick exclusives, Dearly Departed dedications, and tape hiss on every transition.
-                </p>
-                <button className="button-link">Send GutterRat a shout-out</button>
+                <h4>DJ {featuredDj.Name}</h4>
+                <p>{featuredDj.Bio}</p>
+                <button className="button-link">Send {featuredDj.Name} a shout-out</button>
               </div>
             </div>
           </div>
