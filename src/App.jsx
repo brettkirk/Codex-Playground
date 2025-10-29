@@ -2,37 +2,48 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import heroFlyerImg from './assets/poster wall.png'
 import heroCassetteImg from './assets/KPNK Mixtape.png'
 import djGutterRatImg from './assets/DJ Gutterrat.png'
+import staticTinaImg from './assets/Static Tina.png'
+import neonValImg from './assets/Neon Val.png'
+import trashleyImg from './assets/Trashley.png'
+import djBonesawImg from './assets/DJ Bonesaw.png'
+import echoLyricImg from './assets/Echo Lyric.png'
 import './App.css'
 
 const onAirPersonalities = [
   {
-    Name: 'GutterRat',
-    Bio: `Weeknights (10PM–1AM) on The Last Chord, GutterRat keeps Seattle up late with a mix of raw guitars, candid stories, and that signature sign-off: “If it’s broken, play it louder.” It’s the companion show for night owls, tour vans, and anyone who swears their best ideas spark after midnight.`,
+    Name: 'DJ GutterRat',
+    Bio: `Weeknights (10PM–1AM) on The Last Chord, DJ GutterRat keeps Seattle up late with a mix of raw guitars, candid stories, and that signature sign-off: “If it’s broken, play it louder.” It’s the companion show for night owls, tour vans, and anyone who swears their best ideas spark after midnight.`,
     Image: djGutterRatImg,
-    Caption: 'GutterRat rides the faders after midnight, grinning through the static.',
+    Caption: 'DJ GutterRat rides the faders after midnight, grinning through the static.',
   },
   {
     Name: 'Static Tina',
     Bio: `Static Tina owns the graveyard shift (1AM–4AM) with Feedback Frenzy—three hours of caffeinated commentary, live turntable tricks, and deep-cut noise rock. She’ll happily blow a speaker chasing the perfect moment and still sign off with, “Crank it 'til it breaks.”`,
-    Image: djGutterRatImg,
+    Image: staticTinaImg,
     Caption: 'Static Tina braces the booth for feedback and 3AM callers.',
   },
   {
     Name: 'Neon Val',
     Bio: `Pop Damage with Neon Val lights up Thursdays (7PM–9PM). Expect upbeat heartbreak anthems, gleaming harmonies, and interviews with the artists shaping the scene. She calls it “bubblegum with a switchblade,” and her playlists always back it up.`,
-    Image: djGutterRatImg,
+    Image: neonValImg,
     Caption: 'Neon Val cues glossy hooks with a color-coded setlist at the ready.',
   },
   {
     Name: 'Trashley',
     Bio: `Saturdays (2PM–6PM) belong to Trashley and Dumpster Dive Drive. She’s the resident punk historian with a sharp wit, spinning new releases, demo discoveries, and stories from the clubs before anyone else is talking about them.`,
-    Image: djGutterRatImg,
+    Image: trashleyImg,
     Caption: 'Trashley spots tomorrow’s punk heroes before the doors even open.',
+  },
+  {
+    Name: 'DJ Bonesaw',
+    Bio: `Fridays at Midnight belong to DJ Bonesaw and The Mosh Clock. It’s a nonstop wall of hardcore, crust, and anything loud enough to rattle the booth. Expect tempo whiplash, shouted intros, and the occasional rant about venue policies. “No gods. No genre tags.” That’s the rule.`,
+    Image: djBonesawImg,
+    Caption: 'DJ Bonesaw slams through the midnight hour with fists, riffs, and feedback.'
   },
   {
     Name: 'Echo Lyric',
     Bio: `Echo Lyric slips through the static between 3:03–3:11AM with unscheduled cameos of ambient pop, unreleased collabs, and ghostly vocal loops. No official show listing—just a cult following that sets alarms to catch the next transmission.`,
-    Image: djGutterRatImg,
+    Image: echoLyricImg,
     Caption: 'Echo Lyric materializes in the glow, sculpting loops from thin air.',
   },
 ]
@@ -179,7 +190,7 @@ function App() {
             <figure className="hero-image cassette">
               <img
                 src={heroCassetteImg}
-                alt="Photo of a mixtape cassette labeled KPNK 94.9FM K-PUNK mix by DJ GutterRat."
+                alt="Photo of a mixtape cassette labeled KPNK Mixtape."
                 loading="lazy"
               />
               <figcaption>Midnight mix cassette getting dubbed for the next back alley drop.</figcaption>
@@ -224,7 +235,7 @@ function App() {
                 <figcaption>{featuredDj.Caption}</figcaption>
               </figure>
               <div>
-                <h4>DJ {featuredDj.Name}</h4>
+                <h4>{featuredDj.Name}</h4>
                 <p>{featuredDj.Bio}</p>
                 <button className="button-link">Send {featuredDj.Name} a shout-out</button>
               </div>
