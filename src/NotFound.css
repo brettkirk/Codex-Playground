@@ -37,16 +37,33 @@
   overflow: hidden;
 }
 
-.not-found-header::after {
-  content: '⚠ DEAD AIR DETECTED ⚠';
+
+.dead-air-alert {
   position: absolute;
   bottom: 0.75rem;
   right: -3rem;
   font-size: 0.85rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(255, 225, 121, 0.4);
+  color: rgba(255, 225, 121, 0.75);
   transform: rotate(-6deg);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.dead-air-alert:focus-visible,
+.dead-air-alert:hover {
+  color: #ffe179;
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.dead-air-alert span {
+  font-size: 1rem;
+  margin: 0 0.2rem;
 }
 
 .ghost-logo {
@@ -147,6 +164,19 @@
 
   .reroute-links {
     justify-content: center;
+  }
+
+  .dead-air-alert {
+    position: static;
+    margin: 1rem auto 0;
+    transform: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .dead-air-alert:focus-visible,
+  .dead-air-alert:hover {
+    transform: scale(1.05);
   }
 }
 
