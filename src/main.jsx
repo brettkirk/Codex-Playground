@@ -4,9 +4,12 @@ import './index.css'
 import App from './App.jsx'
 import Admin from './Admin.jsx'
 import NotFound from './NotFound.jsx'
+import { initializeTheme } from './theme.js'
 
 const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/'
 let page = <App />
+
+initializeTheme()
 
 if (normalizedPath === '/admin') {
   page = <Admin />
