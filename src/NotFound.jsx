@@ -21,6 +21,16 @@ function NotFound() {
             frequency into the console.
           </p>
         </div>
+        <button
+          type="button"
+          className="dead-air-alert"
+          onClick={() => {
+            window.location.href = '/admin'
+          }}
+          aria-label="Route to admin console"
+        >
+          <span aria-hidden="true">⚠</span> Dead Air Detected <span aria-hidden="true">⚠</span>
+        </button>
       </header>
 
       <main className="not-found-main">
