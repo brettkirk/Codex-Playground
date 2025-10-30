@@ -92,9 +92,4 @@ export const initializeTheme = () => {
   applyThemeVariables(currentTheme);
 };
 
-if (typeof window !== 'undefined') {
-  window.setTheme = setTheme;
-  window.getThemeOptions = getAvailableThemes;
-}
-
 export default THEME_PRESETS;
