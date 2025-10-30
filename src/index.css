@@ -2,8 +2,21 @@
   font-family: 'Verdana', 'Trebuchet MS', sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  color: #f4f4f4;
-  background-color: #08060c;
+  --color-accent-primary: #f2055c;
+  --color-accent-primary-rgb: 242, 5, 92;
+  --color-accent-secondary: #00d4ff;
+  --color-accent-secondary-rgb: 0, 212, 255;
+  --color-highlight: #ffe179;
+  --color-highlight-rgb: 255, 225, 121;
+  --color-text-primary: #f4f4f4;
+  --color-text-on-accent: #150f1d;
+  --color-accent-primary-dark: #600433;
+  --color-background-base: #08060c;
+  --body-background: radial-gradient(circle at top, #1f0f2d, #05030c 55%),
+    url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Cg fill="%2300d4ff" fill-opacity="0.05"%3E%3Ccircle cx="20" cy="20" r="4"/%3E%3Ccircle cx="120" cy="60" r="6"/%3E%3Ccircle cx="60" cy="140" r="5"/%3E%3Ccircle cx="180" cy="110" r="3"/%3E%3C/g%3E%3C/svg%3E');
+  --page-overlay-image: url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%2300d4ff" fill-opacity="0.1" fill-rule="evenodd"%3E%3Cpath d="M0 20h40v2H0z"/%3E%3Cpath d="M20 0h2v40h-2z"/%3E%3C/g%3E%3C/svg%3E');
+  color: var(--color-text-primary);
+  background-color: var(--color-background-base);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -20,7 +33,7 @@ a:hover {
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #1f0f2d, #05030c 55%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Cg fill="%2300d4ff" fill-opacity="0.05"%3E%3Ccircle cx="20" cy="20" r="4"/%3E%3Ccircle cx="120" cy="60" r="6"/%3E%3Ccircle cx="60" cy="140" r="5"/%3E%3Ccircle cx="180" cy="110" r="3"/%3E%3C/g%3E%3C/svg%3E');
+  background: var(--body-background);
   background-size: cover, 220px;
   display: block;
   padding-bottom: 4rem;
