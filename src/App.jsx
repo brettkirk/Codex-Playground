@@ -143,7 +143,9 @@ function App() {
         <div className="now-playing">
           <h2>Now Playing</h2>
           <p className="track">"Static in the Rain" — The Alleyway Echoes</p>
-          <button className="listen-button">Listen Live</button>
+          <a className="listen-button" href="/404">
+            Listen Live
+          </a>
         </div>
       </header>
 
@@ -237,7 +239,9 @@ function App() {
               <div>
                 <h4>{featuredDj.Name}</h4>
                 <p>{featuredDj.Bio}</p>
-                <button className="button-link">Send {featuredDj.Name} a shout-out</button>
+                <a className="button-link" href="/404">
+                  Send {featuredDj.Name} a shout-out
+                </a>
               </div>
             </div>
           </div>
@@ -265,7 +269,9 @@ function App() {
               <article key={event.event} className="event-card">
                 <h4>{event.date}</h4>
                 <p>{event.event}</p>
-                <button className="button-link">RSVP + Win Swag</button>
+                <a className="button-link" href="/404">
+                  RSVP + Win Swag
+                </a>
               </article>
             ))}
           </div>
@@ -295,9 +301,9 @@ function App() {
           <p>Relive the chaos with reruns of your favorite shows every Sunday at 3 AM.</p>
         </div>
         <div className="footer-links">
-          <a href="#">FCC? Never heard of her.</a>
-          <a href="#">Advertise</a>
-          <a href="#">Send us your demo</a>
+          <a href="/404">FCC? Never heard of her.</a>
+          <a href="/404">Advertise</a>
+          <a href="/404">Send us your demo</a>
         </div>
         <p className="copyright">© 2003 KPNK 94.9FM K-PUNK. Built for night owls and lost signals.</p>
       </footer>
