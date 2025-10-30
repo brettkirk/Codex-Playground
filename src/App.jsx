@@ -126,7 +126,9 @@ function App() {
     <div className="page">
       <header className="header">
         <div className="logo-block">
-          <img src="/KPNK.svg" alt="KPNK Radio" className="logo" />
+          <a href="/" className="logo-link" aria-label="Back to KPNK home">
+            <img src="/KPNK.svg" alt="KPNK Radio" className="logo" />
+          </a>
           <span className="frequency">94.9 FM</span>
         </div>
         <div className="header-content">
