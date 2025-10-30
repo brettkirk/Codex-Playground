@@ -1,19 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
+import { getAvailableThemes, getCurrentTheme, setTheme } from './theme.js'
 import './App.css'
 import './Admin.css'
 
 const PASSCODE = 'SignalLost'
-const COMMAND_RESPONSES = {
-  help: () =>
-    [
-      'Available commands:',
-      '  • help - Show available commands',
-      '  • status - Display live subsystem telemetry',
-      '  • diagnose - Run placeholder diagnostics routine',
-      '  • relay-check - Ping relay satellites for response time',
-      '  • reboot - Queue simulated system reboot',
-      '  • clear - Wipe the console output',
-    ],
+const COMMAND_ALIASES = {
+  'set-theme': 'settheme',
+}
+
+const COMMAND_HANDLERS = {
+  help: () => [
+    'Available commands:',
+    '  • help - Show available commands',
+    '  • status - Display live subsystem telemetry',
+    '  • diagnose - Run placeholder diagnostics routine',
+    '  • relay-check - Ping relay satellites for response time',
+    '  • reboot - Queue simulated system reboot',
+    '  • clear - Wipe the console output',
+    `  • setTheme <name> - Switch the site theme (options: ${getAvailableThemes().join(', ')})`,
+  ],
   status: () => 'Status: Broadcast relays stable. No anomalies detected.',
   diagnose: () =>
     'Diagnostics suite engaged. Placeholder results: All virtual checks passed.',
@@ -22,6 +27,29 @@ const COMMAND_RESPONSES = {
   reboot: () =>
     'Reboot sequence staged. Awaiting confirmation from on-site engineer.',
   clear: () => '__CLEAR__',
+  settheme: (args = []) => {
+    const [requestedTheme] = args
+    const availableThemes = getAvailableThemes()
+
+    if (!requestedTheme) {
+      return [
+        'Usage: setTheme <name>',
+        `Available themes: ${availableThemes.join(', ')}`,
+        `Current theme: ${getCurrentTheme()}`,
+      ]
+    }
+
+    const normalizedTheme = requestedTheme.toLowerCase()
+    if (!availableThemes.includes(normalizedTheme)) {
+      return [
+        `Unknown theme: "${requestedTheme}".`,
+        `Available themes: ${availableThemes.join(', ')}`,
+      ]
+    }
+
+    const appliedTheme = setTheme(normalizedTheme)
+    return `Theme applied: ${appliedTheme}`
+  },
 }
 
 function Admin() {
@@ -67,12 +95,17 @@ function Admin() {
     const trimmedInput = consoleInput.trim()
     if (!trimmedInput) return
 
-    const command = trimmedInput.toLowerCase()
+    const [rawCommand, ...rawArgs] = trimmedInput.split(/\s+/)
+    const commandKey = rawCommand.toLowerCase()
+    const handlerKey = COMMAND_HANDLERS[commandKey]
+      ? commandKey
+      : COMMAND_ALIASES[commandKey]
     let updatedLines = [...consoleLines, `> ${trimmedInput}`]
 
-    const response = COMMAND_RESPONSES[command]
-    if (response) {
-      const result = response()
+    const handler = handlerKey ? COMMAND_HANDLERS[handlerKey] : undefined
+
+    if (handler) {
+      const result = handler(rawArgs)
       if (result === '__CLEAR__') {
         updatedLines = []
       } else if (Array.isArray(result)) {
