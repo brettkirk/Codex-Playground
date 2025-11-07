@@ -50,8 +50,25 @@ const THEME_PRESETS = {
 };
 
 const DEFAULT_THEME = 'default';
+const THEME_STORAGE_KEY = 'kpNK.theme';
 
-let currentTheme = DEFAULT_THEME;
+const isThemeSupported = (themeName) => Object.prototype.hasOwnProperty.call(THEME_PRESETS, themeName);
+
+const getStoredTheme = () => {
+  if (typeof window === 'undefined' || typeof window.sessionStorage === 'undefined') {
+    return null;
+  }
+
+  try {
+    const storedTheme = window.sessionStorage.getItem(THEME_STORAGE_KEY);
+    return storedTheme && isThemeSupported(storedTheme) ? storedTheme : null;
+  } catch (error) {
+    console.warn('Unable to read stored theme preference from sessionStorage.', error);
+    return null;
+  }
+};
+
+let currentTheme = getStoredTheme() || DEFAULT_THEME;
 
 const applyThemeVariables = (themeName) => {
   if (typeof document === 'undefined') return;
@@ -68,19 +85,30 @@ const applyThemeVariables = (themeName) => {
   currentTheme = themeName;
 };
 
+const persistTheme = (themeName) => {
+  if (typeof window === 'undefined' || typeof window.sessionStorage === 'undefined') {
+    return;
+  }
+
+  try {
+    window.sessionStorage.setItem(THEME_STORAGE_KEY, themeName);
+  } catch (error) {
+    console.warn('Unable to persist theme preference to sessionStorage.', error);
+  }
+};
+
 export const setTheme = (option = DEFAULT_THEME) => {
   const normalized = typeof option === 'string' ? option.trim().toLowerCase() : DEFAULT_THEME;
-  const themeName = Object.prototype.hasOwnProperty.call(THEME_PRESETS, normalized)
-    ? normalized
-    : DEFAULT_THEME;
+  const themeName = isThemeSupported(normalized) ? normalized : DEFAULT_THEME;
 
-  if (!Object.prototype.hasOwnProperty.call(THEME_PRESETS, normalized)) {
+  if (!isThemeSupported(normalized)) {
     console.warn(
       `Unknown theme "${option}". Falling back to "${DEFAULT_THEME}". Available themes: ${getAvailableThemes().join(', ')}`,
     );
   }
 
   applyThemeVariables(themeName);
+  persistTheme(themeName);
   return currentTheme;
 };
 
